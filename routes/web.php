@@ -17,8 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+Route::get('/users', function () {
+    return view('users');
+})->name('users');
+
+Route::get('/orders', function () {
+    return view('orders');
+})->name('orders');
+
+Route::get('/basket', function () {
+    return view('basket');
+})->name('basket');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
 
 require __DIR__.'/auth.php';
