@@ -23,18 +23,18 @@ Route::get('/products', function () {
 
 Route::get('/users', function () {
     return view('users');
-})->name('users');
+})->middleware(['auth'])->name('users');
 
 Route::get('/orders', function () {
     return view('orders');
-})->name('orders');
+})->middleware(['auth'])->name('orders');
 
 Route::get('/basket', function () {
     return view('basket');
-})->name('basket');
+})->middleware(['auth'])->name('basket');
 
 Route::get('/profile', function () {
     return view('profile');
-})->name('profile');
+})->middleware(['auth'])->name('profile');
 
 require __DIR__.'/auth.php';
