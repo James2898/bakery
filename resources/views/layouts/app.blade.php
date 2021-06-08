@@ -15,6 +15,8 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <link rel="icon" href="{{ asset('img/bread_logo.png') }}" type="image/icon type">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
