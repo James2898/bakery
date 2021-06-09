@@ -16,31 +16,31 @@
             <div>
                 <x-label for="user_name" :value="__('Name')" />
 
-                <input value="sample{{mt_rand(1, 100)}}" type="text" name="user_name" id="idUserName" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
+                <input value="" type="text" name="user_name" id="idUserName" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
             </div>
 
             <div class="mt-4">
                 <x-label for="user_address" :value="__('Email')" />
 
-                <input value="sample{{mt_rand(1, 100)}}@example.com" type="email" name="user_email" id="idUserEmail" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                <input value="" type="email" name="user_email" id="idUserEmail" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
             </div>
 
             <div class="mt-4">
                 <x-label for="user_password" :value="__('Password')" />
 
-                <input value="sample@example.com" type="text" name="user_password" id="idUserPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                <input value="" type="text" name="user_password" id="idUserPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
             </div>
 
             <div class="mt-4">
                 <x-label for="user_address" :value="__('Address')" />
 
-                <input value="sample" type="text" name="user_address" id="idUserAddress" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                <input value="" type="text" name="user_address" id="idUserAddress" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
             </div>
 
             <div class="mt-4">
                 <x-label for="user_mobile" :value="__('Mobile #')" />
 
-                <input value="sample" type="text" name="user_mobile" id="idUserMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                <input value="" type="text" name="user_mobile" id="idUserMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
             </div>
 
             <div class="mt-4">
