@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">Home</x-nav-link>
-                    @if (Auth::check())<x-nav-link :href="route('users')" :active="request()->routeIs('users')">Users</x-nav-link>@endif
+                    @if (Auth::check() && (session('auth') == 1 ))<x-nav-link :href="route('users')" :active="request()->routeIs('users')">Users</x-nav-link>@endif
                     <x-nav-link :href="route('products')" :active="request()->routeIs('products')">Products</x-nav-link>
                     @if (Auth::check())<x-nav-link :href="route('orders')" :active="request()->routeIs('orders')">Orders</x-nav-link>@endif
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">About us</x-nav-link>
