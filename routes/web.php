@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,9 +22,26 @@ Route::get('/products', function () {
     return view('products');
 })->name('products');
 
-Route::get('/users', function () {
-    return view('users');
-})->middleware(['auth'])->name('users');
+// Route::get('/users', [UserController::class, 'index'])
+//     ->middleware('auth')
+//     ->name('users');
+
+// Route::get('/users/create', [UserController::class, 'create'])
+//     ->middleware('auth')
+//     ->name('users.create');
+
+// Route::post('/users/create', [UserController::class, 'add'])
+//     ->middleware('auth');
+
+
+Route::group(['middleware' => 'auth'], function(){
+        Route::get('/users',[UserController::class, 'index'])->name('users');
+        Route::get('/users/add',[UserController::class, 'create'])->name('users.create');
+        Route::get('/users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
+        Route::post('/users/add',[UserController::class, 'store'])->name('users.store');
+        Route::put('/users/edit',[UserController::class, 'update'])->name('users.update');
+        Route::get('/users/{id}',[UserController::class, 'delete'])->name('users.delete');
+});
 
 Route::get('/orders', function () {
     return view('orders');
