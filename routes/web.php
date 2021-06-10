@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/users/add',[UserController::class, 'store'])->name('users.store');
         Route::put('/users/edit',[UserController::class, 'update'])->name('users.update');
         Route::get('/users/{id}',[UserController::class, 'delete'])->name('users.delete');
+        Route::get('/profile/{id}',[UserController::class, 'profile'])->name('profile');
+        Route::put('/profile',[UserController::class, 'profile_update'])->name('profile.update');
 });
 
 Route::get('/orders', function () {
@@ -50,10 +52,6 @@ Route::get('/orders', function () {
 Route::get('/basket', function () {
     return view('basket');
 })->middleware(['auth'])->name('basket');
-
-Route::get('/profile', function () {
-    return view('profile');
-})->middleware(['auth'])->name('profile');
 
 Route::get('/about', function () {
     return view('about');
