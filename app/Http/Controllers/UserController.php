@@ -70,9 +70,12 @@ class UserController extends Controller
             'level' => $request->user_level,
         ]);
 
+
         if($request->user_password) {
-            User::find($request->user_no)->update(['password' => Hash::make($request->password)]);
+            $validated = Hash::make($request->user_password);
+            User::find($request->user_no)->update(['password' => $validated]);
         }
+
         return redirect(route('users.edit',$request->user_no))->with('alert', 'User Updated!');
     }
 
