@@ -13,37 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/products', function () {
-    return view('products');
-})->name('products');
-
-// Route::get('/users', [UserController::class, 'index'])
-//     ->middleware('auth')
-//     ->name('users');
-
-// Route::get('/users/create', [UserController::class, 'create'])
-//     ->middleware('auth')
-//     ->name('users.create');
-
-// Route::post('/users/create', [UserController::class, 'add'])
-//     ->middleware('auth');
-
-
 Route::group(['middleware' => 'auth'], function(){
-        Route::get('/users',[UserController::class, 'index'])->name('users');
-        Route::get('/users/add',[UserController::class, 'create'])->name('users.create');
-        Route::get('/users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
-        Route::post('/users/add',[UserController::class, 'store'])->name('users.store');
-        Route::put('/users/edit',[UserController::class, 'update'])->name('users.update');
-        Route::get('/users/{id}',[UserController::class, 'delete'])->name('users.delete');
-        Route::get('/profile/{id}',[UserController::class, 'profile'])->name('profile');
-        Route::put('/profile',[UserController::class, 'profile_update'])->name('profile.update');
+    // Users
+    Route::get('/users',[UserController::class, 'index'])->name('users');
+    Route::get('/users/add',[UserController::class, 'create'])->name('users.create');
+    Route::post('/users/add',[UserController::class, 'store'])->name('users.store');
+    Route::get('/users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/edit',[UserController::class, 'update'])->name('users.update');
+    Route::get('/users/{id}',[UserController::class, 'delete'])->name('users.delete');
+    
+    // Profile
+    Route::get('/profile/{id}',[UserController::class, 'profile'])->name('profile');
+    Route::put('/profile',[UserController::class, 'profile_update'])->name('profile.update');
+
+    // Products
+    Route::get('/products/add',[ProductController::class, 'create'])->name('products.create');
+    Route::post('/products/add',[ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/products/edit',[ProductController::class, 'update'])->name('products.update');
+    Route::get('/products/{id}',[ProductController::class, 'delete'])->name('products.delete');
+
+    // Basket
+    Route::post('/basket/add',[ProductController::class, 'store'])->name('basket.store');
 });
+
+Route::get('/products',[ProductController::class, 'index'])->name('products');
+Route::get('/products/view/{id}',[ProductController::class, 'view'])->name('products.view');
+
 
 Route::get('/orders', function () {
     return view('orders');
