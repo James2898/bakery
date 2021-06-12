@@ -18,7 +18,7 @@
                 <div class="mt-4">
                     <label for="profile_image"></label>
                     <img id="preview_img" class="border border-yellow-700 mb-1 border-solid hover:border-yellow-500" 
-                    src="{{ asset('storage/img/'.$product->photo) }}" width="200" height="150" />
+                    src="{{ asset('bread/'.$product->photo) }}" width="200" height="150" />
                 
                     <x-label for="product_photo" :value="__('Photo (Photo will not be changed if empty)')" />
                     <input type="file" name="product_photo" id="idProductPhoto" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">

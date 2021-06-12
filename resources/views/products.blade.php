@@ -27,7 +27,7 @@
                 <a href="{{ route('products.view', $product->id) }}">
                 @endif
                         <img class="border border-yellow-700 mb-1 border-solid w-full hover:border-yellow-500" alt="Best seller" 
-                        src="{{ asset('storage/img/'.$product->photo) }}" width="150" height="150" loading="lazy" />
+                        src="{{ asset('bread/'.$product->photo) }}" width="150" height="150" loading="lazy" />
                         <h2 class="pt-2 m-0 leading-4 font-semibold">{{$product->name}}</h2>
                 </a>
                 <p>₱{{number_format($product->price, 2)}}</p>

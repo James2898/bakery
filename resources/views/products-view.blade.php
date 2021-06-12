@@ -10,7 +10,7 @@
         <div class="flex flex-col ">
         <div class="bg-white shadow-md rounded-3xl p-5">
             <img id="preview_img" class="border border-yellow-700 mb-1 border-solid hover:border-yellow-500" 
-            src="{{ asset('storage/img/'.$product->photo) }}" width="200" height="150" />
+            src="{{ asset('bread/'.$product->photo) }}" width="200" height="150" />
             <div class="my-5 mx-auto max-w-screen-xl">
                 <div>
                     <p class="font-bold text-5xl">{{ $product->name }}</p>

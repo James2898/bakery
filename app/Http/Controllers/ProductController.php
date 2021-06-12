@@ -41,7 +41,7 @@ class ProductController extends Controller
 
         $name = uniqid() . $photo->getClientOriginalName();
         // $path = $photo->storeAs('public/img', $name);
-        $path = Storage::putFileAs('public/img',  $photo, $name);
+        $path = Storage::putFileAs('bread',  $photo, $name);
 
         Product::create([
             'name'      => $request->product_name,
@@ -75,10 +75,10 @@ class ProductController extends Controller
         $product = Product::find($request->product_id);
         
         if($request->file('product_photo')) {
-            Storage::delete('public/img/'.$product->photo);
+            Storage::delete('bread/'.$product->photo);
             $photo = $request->file('product_photo');
             $name = uniqid() . $photo->getClientOriginalName();
-            $path = Storage::putFileAs('public/img',  $photo, $name);
+            $path = Storage::putFileAs('bread',  $photo, $name);
             $product->update(['photo' => $name]);
         }
 
@@ -94,7 +94,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::find($id);
-        Storage::delete('public/img/'.$product->photo);
+        Storage::delete('bread/'.$product->photo);
 
         $product->delete();
 
