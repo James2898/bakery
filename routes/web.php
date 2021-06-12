@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BasketController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,7 +41,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/products/{id}',[ProductController::class, 'delete'])->name('products.delete');
 
     // Basket
-    Route::post('/basket/add',[ProductController::class, 'store'])->name('basket.store');
+    Route::get('/basket', [BasketController::class, 'index'])->name('basket');
+    Route::post('/basket',[BasketController::class, 'store'])->name('basket.store');
+    Route::get('/basket/up/{id}',[BasketController::class, 'up'])->name('basket.up');
+    Route::get('/basket/down/{id}',[BasketController::class, 'down'])->name('basket.down');
+
 });
 
 Route::get('/products',[ProductController::class, 'index'])->name('products');
@@ -50,10 +55,6 @@ Route::get('/products/view/{id}',[ProductController::class, 'view'])->name('prod
 Route::get('/orders', function () {
     return view('orders');
 })->middleware(['auth'])->name('orders');
-
-Route::get('/basket', function () {
-    return view('basket');
-})->middleware(['auth'])->name('basket');
 
 Route::get('/about', function () {
     return view('about');

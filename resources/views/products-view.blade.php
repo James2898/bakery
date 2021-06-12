@@ -21,7 +21,7 @@
                     @endif
                 </div>
             </div>
-            <form method="POST" action="{{ route('basket.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('basket.store') }}">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mt-4">

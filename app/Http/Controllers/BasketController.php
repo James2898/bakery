@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Basket;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BasketController extends Controller
 {
@@ -21,8 +24,14 @@ class BasketController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id','ASC')->get();
-        return view('products', compact('products'));
+        // $basket = Basket::where('user_id',Auth::id())
+        $basket = DB::table('baskets')
+            ->select('baskets.id as id','products.name','products.price','baskets.qty')
+            ->where('user_id',Auth::id())
+            ->join('products', 'baskets.product_id','=','products.id')
+            ->get();
+
+        return view('basket', compact('basket'));
     }
 
     public function create()
@@ -33,72 +42,32 @@ class BasketController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData = $request->validate([
-            'product_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        ]);
-
-        $photo = $request->file('product_photo');
-
-        $name = uniqid() . $photo->getClientOriginalName();
-        // $path = $photo->storeAs('public/img', $name);
-        $path = Storage::putFileAs('public/img',  $photo, $name);
-
-        Product::create([
-            'name'      => $request->product_name,
-            'qty'       => $request->product_qty,
-            'price'     => $request->product_price,
-            'photo'     => $name,
-        ]);
-
-        return redirect(route('products'))->with('alert', 'Products Added!');
+        return redirect(route('basket'))->with('alert', 'Item Added!');
     }
 
-    public function view($id)
-    {
-        $product = Product::find($id);
-        return view('products-view', compact('product'));
-    }
-
-    public function edit($id)
-    {
-        $product = Product::find($id);
-        return view('products-edit', compact('product'));
-    }
-
-    public function update(Request $request)
-    {
-
-        $validatedData = $request->validate([
-            'product_photo' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        ]);
-
-        $product = Product::find($request->product_id);
+    public function up($id) {
         
-        if($request->file('product_photo')) {
-            Storage::delete('public/img/'.$product->photo);
-            $photo = $request->file('product_photo');
-            $name = uniqid() . $photo->getClientOriginalName();
-            $path = Storage::putFileAs('public/img',  $photo, $name);
-            $product->update(['photo' => $name]);
+        $basket = Basket::find($id);
+        
+        $basket->update(['qty' => $basket->qty + 1]);
+
+        return redirect(route('basket'))->with('alert', 'Item Updated!'.$id);
+    }
+
+    public function down($id) {
+        
+        $basket = Basket::find($id);
+
+        if ($basket->qty == 1) {
+            $basket->delete();
+            return redirect(route('basket'))->with('alert', 'Item Deleted!');
+        }else {
+            $basket->update(['qty' => $basket->qty - 1]);
+            return redirect(route('basket'))->with('alert', 'Item Updated!');
         }
 
-        $product->update([
-            'name'      => $request->product_name,
-            'qty'       => $request->product_qty,
-            'price'     => $request->product_price,
-        ]);
-        
-        return redirect(route('products.edit',$request->product_id))->with('alert', 'Product Updated!');
+
     }
 
-    public function delete($id)
-    {
-        $product = Product::find($id);
-        Storage::delete('public/img/'.$product->photo);
-
-        $product->delete();
-
-        return redirect(route('products'))->with('alert', 'Product Deleted!');
-    }
 }
 ?>
