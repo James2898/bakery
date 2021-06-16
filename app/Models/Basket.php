@@ -16,6 +16,8 @@ class Basket extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
+        'product_id',
         'qty',
     ];
 

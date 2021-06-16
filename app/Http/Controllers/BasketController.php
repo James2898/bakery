@@ -26,32 +26,70 @@ class BasketController extends Controller
     {
         // $basket = Basket::where('user_id',Auth::id())
         $basket = DB::table('baskets')
-            ->select('baskets.id as id','products.name','products.price','baskets.qty')
+            ->select('baskets.id as id','products.name','products.price','baskets.qty','products.qty as product_qty')
             ->where('user_id',Auth::id())
+            ->orderBy('id','ASC')
             ->join('products', 'baskets.product_id','=','products.id')
             ->get();
 
         return view('basket', compact('basket'));
     }
 
-    public function create()
+    public function checkout()
     {
-        return view('products-create');
+        $basket = DB::table('baskets')
+            ->select(
+                'baskets.id as id','baskets.qty',
+                'products.name','products.price','products.qty as product_qty',
+                'users.name as user_name', 'users.address', 'users.mobile', 'users.email'
+            )
+            ->where('user_id',Auth::id())
+            ->orderBy('id','ASC')
+            ->join('products', 'baskets.product_id','=','products.id')
+            ->join('users', 'baskets.user_id','=','users.id')
+            ->get();
+
+        return view('basket-checkout', compact('basket'));
     }
 
     public function store(Request $request)
     {
 
-        return redirect(route('basket'))->with('alert', 'Item Added!');
+        $basket = DB::table('baskets')
+            ->where([['user_id','=',Auth::id()],['product_id','=',$request->product_id]]);
+        $x = '';
+        if ($basket->exists()) {
+            $qty = $basket->first()->qty;
+            $basket->update([
+                'qty'   => $qty + $request->product_qty
+            ]);
+            $x = 'update';
+        } else {
+            $user_id = Auth::id();
+            Basket::create([
+                'user_id'       => $user_id,
+                'product_id'    => $request->product_id,
+                'qty'           => $request->product_qty,
+            ]);
+        }
+
+
+        return redirect(route('basket'))->with('alert', 'Item Added!'.$x);
     }
 
     public function up($id) {
         
         $basket = Basket::find($id);
         
-        $basket->update(['qty' => $basket->qty + 1]);
+        $product = Product::find($basket->product_id);
 
-        return redirect(route('basket'))->with('alert', 'Item Updated!'.$id);
+        if ( $basket->qty >= $product->qty) {
+            return redirect(route('basket'))->with('alert', 'Max Item Reached!');    
+        } else {
+            $basket->update(['qty' => $basket->qty + 1]);
+            return redirect(route('basket'))->with('alert', 'Item Updated!');
+        }
+
     }
 
     public function down($id) {

@@ -21,13 +21,14 @@
                     @endif
                 </div>
             </div>
+            @if ($product->qty != '0')
             <form method="POST" action="{{ route('basket.store') }}">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mt-4">
                     <x-label for="product_qty" :value="__('Quantity')" />
-    
-                    <input type="number" value="1" min="0" max="{{$product->qty}}" name="product_qty" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" id="idUserEmail" class="w-1/6 h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+
+                    <input type="number" value="1" min="1" max="{{$product->qty}}" name="product_qty" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null" id="idProductQty" class="w-1/6 h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
                     <button class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                         Add to Cart
                     </button>
@@ -35,6 +36,7 @@
                 <div class="mt-4">
                 </div>
             </form>
+            @endif
         </div>
         </div>
         </div>

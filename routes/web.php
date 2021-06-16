@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Basket
     Route::get('/basket', [BasketController::class, 'index'])->name('basket');
     Route::post('/basket',[BasketController::class, 'store'])->name('basket.store');
+    Route::get('/basket/checkout', [BasketController::class, 'checkout'])->name('basket.checkout');
     Route::get('/basket/up/{id}',[BasketController::class, 'up'])->name('basket.up');
     Route::get('/basket/down/{id}',[BasketController::class, 'down'])->name('basket.down');
 
