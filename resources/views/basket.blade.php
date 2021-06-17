@@ -14,7 +14,9 @@
                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                     <th class="py-3 px-6 text-left">Name</th>
                     <th class="py-3 px-6 text-left">Price</th>
+                    <th class="py-3 px-6 text-left"></th>
                     <th class="py-3 px-6 text-center">Qty</th>
+                    <th class="py-3 px-6 text-left"></th>
                     <th class="py-3 px-6 text-center">Stock</th>
                 </tr>
             </thead>
@@ -22,7 +24,7 @@
                 @if (count($basket) > 0)
                 @foreach ($basket as $item)
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <td class="py-3 px-6 text-left">
                     <div class="flex items-center">
                         <span class="font-medium">{{ $item->name }}</span>
                     </div>
@@ -32,11 +34,15 @@
                         <span>{{ $item->price }}</span>
                     </div>
                     </td>
-                    <td class="text-center">
+                    <td class="py-3 px-6 text-left">
                         <a href="{{ route('basket.down', $item->id) }}" @if($item->qty == 1) onclick="return confirm('Are you sure to remove?')"@endif class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                             −
                         </a>
+                    </td>
+                    <td class="text-center">
                         <span class="mx-5">{{ $item->qty }}</span>
+                    </td>
+                    <td class="py-3 px-6 text-left">
                         <a href="{{ route('basket.up', $item->id) }}" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                             +
                         </a>
