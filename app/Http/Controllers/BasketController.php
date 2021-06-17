@@ -74,7 +74,7 @@ class BasketController extends Controller
         }
 
 
-        return redirect(route('basket'))->with('alert', 'Item Added!'.$x);
+        return redirect(route('basket'))->with('alert', 'Item Added!');
     }
 
     public function up($id) {
