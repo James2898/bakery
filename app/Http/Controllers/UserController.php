@@ -85,5 +85,35 @@ class UserController extends Controller
 
         return redirect(route('users'))->with('alert', 'User Deleted!');
     }
+
+    public function profile($id)
+    {
+        $user = User::find($id);
+        return view('profile', compact('user'));
+    }
+
+    public function profile_update(Request $request)
+    {
+        $request->validate([
+            // 'name' => 'required',
+            // 'introduction' => 'required',
+            // 'location' => 'required',
+            // 'cost' => 'required'
+        ]);
+
+        User::find($request->user_no)->update([
+            'name' => $request->user_name,
+            'email' => $request->user_email,
+            'address' => $request->user_address,
+            'mobile' => $request->user_mobile,
+        ]);
+
+        if($request->user_password) {
+            $validated = Hash::make($request->user_password);
+            User::find($request->user_no)->update(['password' => $validated]);
+        }
+
+        return redirect(route('profile',$request->user_no))->with('alert', 'Profile Updated!');
+    }
 }
 ?>

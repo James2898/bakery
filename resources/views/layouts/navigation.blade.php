@@ -23,9 +23,7 @@
             <!-- Settings Dropdown -->
             @if (Auth::check())
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                        {{ Auth::user()->name }}
-                </button>
+                <a href="{{ route('profile', Auth::id()) }}">{{ Auth::user()->name }}</a>
                 <button class="flex items-center hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                     <div class="mx-5">
                         <a href="{{ route('basket') }}">
@@ -91,20 +89,27 @@
                 <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
                     Home
                 </x-responsive-nav-link>
+                @if (Auth::check() && (session('auth') == 1 ))
                 <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
                     Users
                 </x-responsive-nav-link>
+                @endif
                 <x-responsive-nav-link :href="route('products')" :active="request()->routeIs('products')">
                     Products
                 </x-responsive-nav-link>
+                @if (Auth::check())
                 <x-responsive-nav-link :href="route('orders')" :active="request()->routeIs('orders')">
                     Orders
+                </x-responsive-nav-link>
+                @endif
+                <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
+                    About
                 </x-responsive-nav-link>
             </div>
             @if (Auth::check())
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">@if (Auth::check())<div>{{ Auth::user()->name }}</div>@endif</div>
-                <small><a href="{{ route('profile') }}">View Profile</a></small>
+                <div class="font-medium text-base text-gray-800">@if (Auth::check())<a href="{{ route('profile', Auth::id()) }}">{{ Auth::user()->name }}</a>@endif</div>
+                <small><a href="{{ route('profile', Auth::id()) }}">View Profile</a></small>
             </div>
 
             <div class="mt-3">

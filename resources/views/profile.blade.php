@@ -1,22 +1,63 @@
 <x-app-layout>
-    <div class="pt-24">
-        <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-          <!--Left Col-->
-          <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <h1 class="my-4 text-5xl font-bold leading-tight">
-              Profile
-            </h1>
-            <p class="leading-normal text-2xl mb-8">
-              Give the gift of good bread and pastries to the special persons in your life. Click here to find our premium breads!
-            </p>
-            <a class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Shop Now
-            </a>
-          </div>
-          <!--Right Col-->
-          <div class="w-full md:w-3/5 py-6 text-center">
-            <img class="w-full md:w-4/5 z-50" src="{{ asset('img/bread_homepage.png') }}" />
-          </div>
-        </div>
+<div class="overflow-x-auto">
+<div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+<div class="w-full lg:w-5/6">
+    @if ($message = Session::get('alert'))
+        <x-alert  />
+    @endif
+    <h1 class="text-5xl font-bold leading-tight">Profile</h1>
+    <div class=" overflow-x-auto bg-white shadow-md rounded my-6">
+    <div class="grid mt-8 gap-8 grid-cols-1">
+    <div class="flex flex-col ">
+    <div class="bg-white shadow-md rounded-3xl p-5">
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="user_no" value="{{ $user->id }}" />
+
+            <div>
+                <x-label for="user_email" :value="__('Name')" />
+
+                <input value="{{ $user->name  }}" type="text" name="user_name" id="idUserName" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" required>
+            </div>
+
+            <div class="mt-4">
+                <x-label for="user_address" :value="__('Email')" />
+
+                <input value="{{ $user->email }}" type="email" name="user_email" id="idUserEmail" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+            </div>
+
+            <div class="mt-4">
+                <x-label for="user_password" :value="__('Password')" />
+
+                <input value="" type="text" name="user_password" id="idUserPassword" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Password will not be changed if empty">
+            </div>
+
+            <div class="mt-4">
+                <x-label for="user_address" :value="__('Address')" />
+
+                <input value="{{ $user->address }}" type="text" name="user_address" id="idUserAddress" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+            </div>
+
+            <div class="mt-4">
+                <x-label for="user_mobile" :value="__('Mobile #')" />
+
+                <input value="{{ $user->mobile }}" type="text" name="user_mobile" id="idUserMobile" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <x-button class="ml-3">
+                    {{ __('Update Profile') }}
+                </x-button>
+            </div>
+        </form>
     </div>
-  </x-app-layout>  
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</x-app-layout>
