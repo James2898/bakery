@@ -70,7 +70,7 @@
         <div class=" overflow-x-auto bg-white shadow-md rounded my-6">
         <table class="min-w-max w-full table-fixed">
             <tr>
-                <th width="10%" class="py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Name</th>
+                <th class="py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Name</th>
                 <td width="80%" class="py-3 px-3 border-b border-gray-200">
                     {{ $item->user_name }}
                 </td>
@@ -121,7 +121,7 @@
         </table>
         </div>
         <div class="py-5 mx-auto">
-            <a href="{{ route('products.create') }}" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <a href="{{ route('orders.checkout') }}" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             Place Order
             </a>
         </div>

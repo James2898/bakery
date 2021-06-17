@@ -34,7 +34,7 @@
                         <span>{{ $item->price }}</span>
                     </div>
                     </td>
-                    <td class="py-3 px-6 text-left">
+                    <td class="py-3 text-right">
                         <a href="{{ route('basket.down', $item->id) }}" @if($item->qty == 1) onclick="return confirm('Are you sure to remove?')"@endif class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                             −
                         </a>
@@ -42,7 +42,7 @@
                     <td class="text-center">
                         <span class="mx-5">{{ $item->qty }}</span>
                     </td>
-                    <td class="py-3 px-6 text-left">
+                    <td class="py-3 text-left">
                         <a href="{{ route('basket.up', $item->id) }}" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                             +
                         </a>
