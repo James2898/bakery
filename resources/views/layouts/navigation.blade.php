@@ -89,14 +89,21 @@
                 <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
                     Home
                 </x-responsive-nav-link>
+                @if (Auth::check() && (session('auth') == 1 ))
                 <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
                     Users
                 </x-responsive-nav-link>
+                @endif
                 <x-responsive-nav-link :href="route('products')" :active="request()->routeIs('products')">
                     Products
                 </x-responsive-nav-link>
+                @if (Auth::check())
                 <x-responsive-nav-link :href="route('orders')" :active="request()->routeIs('orders')">
                     Orders
+                </x-responsive-nav-link>
+                @endif
+                <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
+                    About
                 </x-responsive-nav-link>
             </div>
             @if (Auth::check())
