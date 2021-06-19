@@ -30,9 +30,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'name'      => 'required|string|max:255',
-            // 'email'     => 'required|string|email|max:255|unique:users',
+            // 'user_name'      => 'required|string|max:255',
+            // 'user_email'     => 'required|string|email|max:255|unique:users',
             // 'user_address'   => 'required|string|max:255',
+            'user_mobile'    => 'required|digits:11'
             // 'user_password'  => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -56,10 +57,11 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            // 'name' => 'required',
-            // 'introduction' => 'required',
-            // 'location' => 'required',
-            // 'cost' => 'required'
+            // 'user_name'      => 'required|string|max:255',
+            // 'user_email'     => 'required|string|email|max:255|unique:users',
+            // 'user_address'   => 'required|string|max:255',
+            'user_mobile'    => 'required|digits:11'
+            // 'user_password'  => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         User::find($request->user_no)->update([
@@ -95,10 +97,7 @@ class UserController extends Controller
     public function profile_update(Request $request)
     {
         $request->validate([
-            // 'name' => 'required',
-            // 'introduction' => 'required',
-            // 'location' => 'required',
-            // 'cost' => 'required'
+            'user_mobile'    => 'required|digits:11'
         ]);
 
         User::find($request->user_no)->update([
