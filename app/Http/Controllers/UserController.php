@@ -97,10 +97,7 @@ class UserController extends Controller
     public function profile_update(Request $request)
     {
         $request->validate([
-            // 'name' => 'required',
-            // 'introduction' => 'required',
-            // 'location' => 'required',
-            // 'cost' => 'required'
+            'user_mobile'    => 'required|digits:11'
         ]);
 
         User::find($request->user_no)->update([
