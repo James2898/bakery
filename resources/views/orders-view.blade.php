@@ -158,7 +158,7 @@
         </div>
         <div class="py-5 mx-auto">
             @if($status == 0 && session('auth') == 3)
-            <a href="#" class="btn mx-auto lg:mx-0 hover:underline bg-red-500 text-white font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <a onclick="return confirm('Cancel Order?')" href="{{ route('orders.cancel',$order_no) }}" class="btn mx-auto lg:mx-0 hover:underline bg-red-500 text-white font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                 Cancel Order
             </a>
             @endif
