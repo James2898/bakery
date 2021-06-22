@@ -5,7 +5,7 @@
             <x-alert  />
         @endif
     </div>
-    {{-- <div class="min-w-screen bg-gray-100 flex md:flex-row items-center justify-center font-sans overflow-hidden"> --}}
+    {{-- <div class="min-w-screen flex md:flex-row items-center justify-center font-sans overflow-hidden"> --}}
     <div class="container min-w-screen mx-auto justify-center flex flex-wrap flex-col md:flex-row items-center">
     <span>
     </span>

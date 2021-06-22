@@ -5,7 +5,7 @@
       {{ session()->get('success') }}  
     </div><br />
   @endif
-  <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+  <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
   <div class="w-full lg:w-5/6">
     @if ($message = Session::get('alert'))
         <x-alert  />
