@@ -50,6 +50,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/orders/add', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('/orders/add',[OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders/cancel/{id}',[OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('/orders/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
     Route::get('/orders/view/{id}', [OrderController::class, 'view'])->name('orders.view');
     Route::post('/orders/update',[OrderController::class, 'update'])->name('orders.update');

@@ -8,7 +8,7 @@
     <div class="mx-auto">
       <h1 class="text-5xl font-bold leading-tight">Orders</h1>
       @if (session('auth') == 1 || session('auth') == 2 )
-      <a href="#" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+      <a href="{{ route('orders.create') }}" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full py-2 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
         Add Order
       </a>
       @endif

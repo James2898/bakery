@@ -32,7 +32,7 @@ class OrderController extends Controller
             $orders_db = DB::table('orders')
                 ->select('orders.*','users.*','products.name as product_name')
                 ->where('user_id',Auth::id())
-                ->orderBy('orders.id','ASC')
+                ->orderBy('orders.id','DESC')
                 ->join('users', 'orders.user_id','=','users.id')
                 ->join('products','orders.product_id','=','products.id')
                 ->get();
@@ -109,7 +109,40 @@ class OrderController extends Controller
 
     public function create()
     {
-        return view('products-create');
+        $users = DB::table('users')
+            ->where('level',3)->get();
+        $products = DB::table('products')
+            ->where('qty','>','0')->get();
+        return view('orders-create', compact(['users','products']));
+    }
+
+    public function store(Request $request)
+    {
+        $user_id = $request->user_id;
+        foreach ($request->products as $product_id) {
+            $qty = $request->input('order_qty_'.$product_id);
+            $order_id = uniqid();
+            $mytime = Carbon\Carbon::now();
+
+            $user = User::find($user_id);
+            $product = Product::find($product_id);
+
+            Order::create([
+                'order_no'      => $order_id,
+                'user_id'       => $user_id,
+                'product_id'    => $product_id,
+                'order_address' => $user->address,
+                'order_qty'     => $qty,
+                'order_price'   => $product->price,
+                'order_payment' => '1',
+                'order_total'    => $qty * $product->price,
+                'order_status'  => '0',
+                'order_date_checkout' => $mytime->toDateTimeString(),
+            ]);
+            $new_qty = $qty >= $product->qty ? 0 : $product->qty - $qty;
+            $product->update(['qty' => $new_qty]);
+        }
+        return redirect(route('orders'))->with('alert', 'Order Placed!');
     }
 
     public function checkout()
@@ -142,6 +175,9 @@ class OrderController extends Controller
                 'order_status'  => '0',
                 'order_date_checkout' => $mytime->toDateTimeString(),
             ]);
+            $product = Product::find($item->product_id);
+            $new_qty = $item->qty >= $product->qty ? 0 : $product->qty - $item->qty;
+            $product->update(['qty' => $new_qty]);
         }
         Basket::where('user_id', Auth::id())->delete();
 
@@ -153,13 +189,58 @@ class OrderController extends Controller
 
         $order = DB::table('orders')
             ->where([['order_no','=',$request->order_no]]);
-        
-        $order->update([
-                'order_status'   => $request->order_status
-            ]);
 
-        return redirect(route('orders.view',$order->first()->order_no))->with('alert', 'Order Updated!');
+        $order_no = $order->first()->order_no;
+        $order_status = $order->first()->order_status;
+
+        if ($order_status != 4 && $request->order_status == '4') {
+            foreach ($order->get() as $item) {
+                $product = Product::find($item->product_id);
+                $product->update([
+                    'qty'   => $product->qty + $item->order_qty
+                ]);
+            }
+        } else if ($order_status == 4) {
+            foreach ($order->get() as $item) {
+                $product = Product::find($item->product_id);
+                $new_qty = $item->order_qty >= $product->qty ? 0 : $product->qty - $item->order_qty;
+                $product->update([
+                    'qty'   => $new_qty
+                ]);
+            }
+        }
+        
+
+        $order->update([
+            'order_status'   => $request->order_status
+        ]);
+
+        return redirect(route('orders.view',$order_no))->with('alert', 'Order Updated!');
     }
+
+    public function cancel($order_no)
+    {
+        $order = DB::table('orders')
+            ->where([['order_no','=',$order_no]]);
+
+        $order_no = $order->first()->order_no;
+        $order_status = $order->first()->order_status;
+
+        foreach ($order->get() as $item) {
+            $product = Product::find($item->product_id);
+            $product->update([
+                'qty'   => $product->qty + $item->order_qty
+            ]);
+        }
+        
+
+        $order->update([
+            'order_status'   => '4'
+        ]);
+
+        return redirect(route('orders.view',$order_no))->with('alert', 'Order Updated!');
+    }
+
 
     public function view($id) {
         

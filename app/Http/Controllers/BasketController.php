@@ -48,6 +48,12 @@ class BasketController extends Controller
             ->join('products', 'baskets.product_id','=','products.id')
             ->join('users', 'baskets.user_id','=','users.id')
             ->get();
+        
+        foreach ($basket as $item) {
+            if ($item->product_qty == 0) {
+                return redirect(route('basket'))->with('alert', 'Cannot checkout item, 0 in stocks!');
+            }
+        }
 
         return view('basket-checkout', compact('basket'));
     }
