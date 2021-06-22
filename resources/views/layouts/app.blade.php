@@ -17,11 +17,22 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+        <style>
+            #idbg {
+                background-image: url("{{ asset('img/bread_bg.jpg') }}") ;
+                height: 100%;
+                height: auto;
+
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
 
         <link rel="icon" href="{{ asset('img/bread_logo.png') }}" type="image/icon type">
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen" id="idbg">
             @include('layouts.navigation')
 
             <!-- Page Content -->
