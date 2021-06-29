@@ -1,4 +1,15 @@
 <x-app-layout>
+<style>
+    .productsimg {
+    margin: 1em 0;
+    }
+
+    .productsimg img {
+        width: 15vw;
+        height: 15vw;
+        object-fit: cover;
+    }
+</style>
 <div class="bg-black">
     <div class="flex relative text-center">
     <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Made Fresh For You</h1>
@@ -22,9 +33,9 @@
             @foreach ($products as $product)
             <div>
                 @if(session('auth') && session('auth') < '3')
-                <a href="{{ route('products.edit', $product->id) }}">
+                <a href="{{ route('products.edit', $product->id) }}" class="productsimg" style="width:150px; height:150px">
                 @else  
-                <a href="{{ route('products.view', $product->id) }}">
+                <a href="{{ route('products.view', $product->id) }}" class="productsimg">
                 @endif
                         <img class="border border-yellow-700 mb-1 border-solid w-full hover:border-yellow-500" alt="Best seller" 
                         src="{{ asset('bread/'.$product->photo) }}" width="150" height="150" loading="lazy" />
