@@ -35,7 +35,7 @@
                 <div class="mt-4">
                     <x-label for="product_price" :value="__('Price')" />
     
-                    <input value="" type="number" name="product_price" id="idProductPrice" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
+                    <input value="" type="number" min="1" name="product_price" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" id="idProductPrice" class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline"  required>
                 </div>
     
                 <div class="flex items-center justify-end mt-4">

@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/users/{id}',[UserController::class, 'delete'])->name('users.delete');
     
     // Profile
-    Route::get('/profile/{id}',[UserController::class, 'profile'])->name('profile');
+    Route::get('/profile',[UserController::class, 'profile'])->name('profile');
     Route::put('/profile',[UserController::class, 'profile_update'])->name('profile.update');
 
     // Products

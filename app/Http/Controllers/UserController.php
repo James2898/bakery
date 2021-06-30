@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
@@ -88,9 +89,9 @@ class UserController extends Controller
         return redirect(route('users'))->with('alert', 'User Deleted!');
     }
 
-    public function profile($id)
+    public function profile()
     {
-        $user = User::find($id);
+        $user = User::find(Auth::id());
         return view('profile', compact('user'));
     }
 
