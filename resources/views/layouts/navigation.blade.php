@@ -45,7 +45,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile',Auth::id())">
+                        <x-dropdown-link :href="route('profile')">
                             View Profile
                         </x-dropdown-link>
                         <!-- Authentication -->
@@ -113,8 +113,8 @@
             </div>
             @if (Auth::check())
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">@if (Auth::check())<a href="{{ route('profile', Auth::id()) }}">{{ Auth::user()->name }}</a>@endif</div>
-                <small><a href="{{ route('profile', Auth::id()) }}">View Profile</a></small>
+                <div class="font-medium text-base text-gray-800">@if (Auth::check())<a href="{{ route('profile') }}">{{ Auth::user()->name }}</a>@endif</div>
+                <small><a href="{{ route('profile') }}">View Profile</a></small>
             </div>
 
             <div class="mt-3">
