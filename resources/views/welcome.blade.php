@@ -7,7 +7,7 @@
             Made Fresh For You!
           </h1>
           <p class="leading-normal text-2xl mb-8">
-            Give the gift of good bread and pastries to the special persons in your life. Click here to find our premium breads!
+            Give the gift of good bread and pastries to the special persons in your life.
           </p>
           <div :href="route('products')" class="btn mx-auto lg:mx-0 hover:underline bg-yellow-500 text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             <a href={{ route('products') }}>Shop Now</a>
