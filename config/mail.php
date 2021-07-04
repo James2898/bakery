@@ -13,6 +13,14 @@ return [
     |
     */
 
+    'stream'=>[
+        'ssl'=>[
+            'allow_self_signed'=>true,
+            'verify_peer'=>false,
+            'verify_peer_name'=>false,
+        ],
+    ],
+
     'default' => env('MAIL_MAILER', 'smtp'),
 
     /*
@@ -84,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'amabakery123@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Laravel'),
     ],
 
     /*
